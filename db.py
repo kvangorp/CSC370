@@ -22,9 +22,9 @@ conn = psycopg2.connect(dbname=psql_db,
 
 #dont know if this  works or not just writing stuff
 
-def selectFromDB(values,table) #not complete just rough skeleton
+def selectFromDB(values,table,conditions) #not complete just rough skeleton
     cur = conn.cursor()
-    string = "SELECT %s FROM %s ;" (values,table)
+    string = "SELECT %s FROM %s WHERE %s;" (values,table,conditions)
     cur.execute(string)
     rows = cur.fetchall()
     for row in rows:
