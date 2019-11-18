@@ -1,4 +1,5 @@
 import sys, csv, psycopg2
+
 # Open db connection here
 
 psql_user = 'daytondep'
@@ -12,21 +13,17 @@ conn = psycopg2.connect(dbname=psql_db,
     host=psql_server,
     port=psql_port) 
 
-
-#Sample query
-cur = conn.cursor()
-cur.execute("select * from users;")
-rows = cur.fetchall()
-for row in rows:
-    print(row)
-
 #dont know if this  works or not just writing stuff
 #update : works!
 def selectFromDB(values,table,conditions):
-    cur = conn.cursor()
-    string = "SELECT %s FROM %s WHERE %s;" (values,table,conditions)
-    cur.execute(string)
-    rows = cur.fetchall()
-    for row in rows:
-        print(row)
+        cur = conn.cursor()
+        string = "SELECT %s FROM %s %s;" %(values,table,conditions)
+        cur.execute(string)
+        rows = cur.fetchall()
+        for row in rows:
+            print(row)
+
+#Function calls
+selectFromDB('*','users','')
+
 
