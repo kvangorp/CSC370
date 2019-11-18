@@ -1,8 +1,0 @@
-CREATE TABLE Users (
-  user_ID VAR_CHAR(255) PRIMARY KEY,
-  user_name VAR_CHAR(255), 
-  email VAR_CHAR(255) NOT NULL,
-  password VAR_CHAR(255) NOT NULL,
-  skill_level CHAR(30),
-);
-
