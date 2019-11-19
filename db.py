@@ -27,20 +27,24 @@ def deleteFromDB(table, conditions):
   cur = conn.cursor()
   query = "DELETE FROM %s %s;" %(table, conditions)
   cur.execute(query)
+  get_query = "SELECT * FROM %s %s;" %(table, conditions)
+  cur.execute(get_query)
   rows = cur.fetchall()
   for row in rows:
     print(row)
 
-def updateFromDB(table, conditions):
+def updateFromDB(table, new, conditions):
   cur = conn.cursor()
-  query = "UPDATE %s SET %s %s;" %(table, set, conditions)
-  cur.execute(query)
+  update_query = "UPDATE %s SET %s %s;" %(table, new, conditions)
+  cur.execute(update_query)
+  get_query = "SELECT * FROM %s %s;" %(table, conditions)
+  cur.execute(get_query)
   rows = cur.fetchall()
   for row in rows:
     print(row)
 
 #Function calls
 selectFromDB('*','users','')
-deleteFromDB()
-updateFromDB()
+deleteFromDB('users', 'WHERE user_id=\'1\'')
+updateFromDB('users', 'email=\'definitelyarealemail@email.com\'', 'WHERE user_id=\'1\'')
 
