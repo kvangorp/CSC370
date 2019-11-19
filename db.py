@@ -16,7 +16,6 @@ conn = psycopg2.connect(dbname=psql_db,
 #dont know if this  works or not just writing stuff
 #update : works!
 def selectFromDB(values,table,conditions):
-  cur = conn.cursor()
   string = "SELECT %s FROM %s %s;" %(values,table,conditions)
   cur.execute(string)
   rows = cur.fetchall()
@@ -24,27 +23,30 @@ def selectFromDB(values,table,conditions):
     print(row)
 
 def deleteFromDB(table, conditions):
-  cur = conn.cursor()
   query = "DELETE FROM %s %s;" %(table, conditions)
   cur.execute(query)
   get_query = "SELECT * FROM %s %s;" %(table, conditions)
   cur.execute(get_query)
   rows = cur.fetchall()
+  conn.commit()
   for row in rows:
     print(row)
 
 def updateFromDB(table, new, conditions):
-  cur = conn.cursor()
   update_query = "UPDATE %s SET %s %s;" %(table, new, conditions)
   cur.execute(update_query)
   get_query = "SELECT * FROM %s %s;" %(table, conditions)
   cur.execute(get_query)
   rows = cur.fetchall()
+  conn.commit()
   for row in rows:
     print(row)
 
+cur = conn.cursor()
 #Function calls
 selectFromDB('*','users','')
 deleteFromDB('users', 'WHERE user_id=\'1\'')
 updateFromDB('users', 'email=\'definitelyarealemail@email.com\'', 'WHERE user_id=\'1\'')
 
+cur.close()
+conn.close()
