@@ -23,7 +23,32 @@ def selectFromDB(values,table,conditions):
         for row in rows:
             print(row)
 
+def createTable(name,attributes):
+        cur = conn.cursor()
+        string = "CREATE TABLE %s( %s);" %(name,attributes)
+        cur.execute(string)
+        print('CREATED \n')
+
+        cur = conn.cursor()
+        conn.commit()
+        cur.close()
+        conn.close()
+
+        
+
+def deleteTable(name):
+       cur = conn.cursor()
+       string = "DROP TABLE %s;" %(name)
+       cur.execute(string)
+
+       print('DELETED \n')
+       cur = conn.cursor()
+       conn.commit()
+       cur.close()
+       conn.close()
 #Function calls
 selectFromDB('*','users','')
+#createTable('test', 'testID INT, testval CHAR(255), testfail INT')
+deleteTable('test')
 
 
