@@ -22,6 +22,7 @@ def selectFromDB(values,table,conditions):
   for row in rows:
     print(row)
 
+
 def deleteFromDB(table, conditions):
   query = "DELETE FROM %s %s;" %(table, conditions)
   cur.execute(query)
@@ -41,8 +42,21 @@ def updateFromDB(table, new, conditions):
   conn.commit()
   for row in rows:
     print(row)
+    
+def createTable(name,attributes):
+  string = "CREATE TABLE %s( %s);" %(name,attributes)
+  cur.execute(string)
+  print('CREATED \n')
+  conn.commit()
+
+def deleteTable(name):
+  string = "DROP TABLE %s;" %(name)
+  cur.execute(string)
+  print('DELETED \n')
+  conn.commit()
 
 cur = conn.cursor()
+
 #Function calls
 selectFromDB('*','users','')
 deleteFromDB('users', 'WHERE user_id=\'1\'')
@@ -50,3 +64,4 @@ updateFromDB('users', 'email=\'definitelyarealemail@email.com\'', 'WHERE user_id
 
 cur.close()
 conn.close()
+
