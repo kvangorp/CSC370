@@ -30,6 +30,7 @@ def deleteFromDB(table, conditions):
   get_query = "SELECT * FROM %s %s;" %(table, conditions)
   cur.execute(get_query)
   rows = cur.fetchall()
+  conn.commit()
   for row in rows:
     print(row)
 
@@ -40,6 +41,7 @@ def updateFromDB(table, new, conditions):
   get_query = "SELECT * FROM %s %s;" %(table, conditions)
   cur.execute(get_query)
   rows = cur.fetchall()
+  conn.commit()
   for row in rows:
     print(row)
 
