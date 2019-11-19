@@ -22,6 +22,16 @@ def selectFromDB(values,table,conditions):
   for row in rows:
     print(row)
 
+def insertIntoDB(table,attributes,values):
+    string = "INSERT INTO %s (%s) VALUES (%s);" %(table,attributes,values)
+    cur.execute(string)
+    get_query = "SELECT * FROM %s %s;" %(table, attributes)
+    cur.execute(get_query)
+    rows = cur.fetchall()
+    conn.commit()
+    for row in rows:
+      print(row)
+    
 
 def deleteFromDB(table, conditions):
   query = "DELETE FROM %s %s;" %(table, conditions)
@@ -59,6 +69,7 @@ cur = conn.cursor()
 
 #Function calls
 selectFromDB('*','users','')
+insertIntoDB('sequences', "sequence_id, description, completion_count, difficulty, subject, course_type", "1, 'This is a sequence.', 1, 'Easy', 'Computer Science', 'Mixed'")
 deleteFromDB('users', 'WHERE user_id=\'1\'')
 updateFromDB('users', 'email=\'definitelyarealemail@email.com\'', 'WHERE user_id=\'1\'')
 
